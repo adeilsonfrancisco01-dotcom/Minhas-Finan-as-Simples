@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Finanças Simples</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-topo">
+            <div>
+                <h1>Minhas Finanças Simples</h1>
+                <p>Fase 3 - Diversão com Som e Ranking</p>
+            </div>
+            <button id="btn-tema">🌙</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="card saldo">
+            <h2>Saldo Atual</h2>
+            <span id="saldo">R$ 0,00</span>
+            <p id="streak">🔥 Sequência: 0 dias guardando</p>
+        </div>
+
+        <div class="resumo">
+            <div class="card mini"><h3>Entradas</h3><span id="total-entradas">R$ 0,00</span></div>
+            <div class="card mini"><h3>Saídas</h3><span id="total-saidas">R$ 0,00</span></div>
+        </div>
+
+        <div class="card cofrinho">
+            <h3>🐷 Meu Cofrinho</h3>
+            <p id="meta-nome">Nenhuma meta ainda. Crie uma!</p>
+            <div class="barra-fundo"><div id="barra-meta" class="barra-preenchimento"></div></div>
+            <p id="meta-texto">R$ 0 de R$ 0</p>
+            <div class="linha">
+                <input type="text" id="nome-meta" placeholder="Meta - Ex: Viagem">
+                <input type="number" id="valor-meta" placeholder="Quanto? Ex: 2000">
+            </div>
+            <div class="linha">
+                <button id="btn-criar-meta">Criar Meta</button>
+                <button id="btn-guardar">💰 Guardar R$ 50</button>
+            </div>
+            <button id="btn-som">🔊 Som: Ligado</button>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Ranking - Meus Maiores Gastos</h3>
+            <p id="sem-ranking">Sem gastos ainda. Adicione uma saída.</p>
+            <ol id="ranking"></ol>
+        </div>
+
+        <div class="card">
+            <h3>Onde estou gastando?</h3>
+            <p id="sem-grafico">Adicione uma saída para ver o gráfico.</p>
+            <div id="grafico"></div>
+        </div>
+
+        <div class="card">
+            <input type="text" id="descricao" placeholder="Descrição - Ex: Salário, Pizza">
+            <input type="number" id="valor" placeholder="Valor - Ex: 100">
+            <div class="linha">
+                <input type="date" id="data">
+                <select id="categoria">
+                    <option value="Salário">Salário</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Moradia">Moradia</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Outros">Outros</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="botoes">
+            <button id="btn-entrada">+ Entrada</button>
+            <button id="btn-saida">- Saída</button>
+        </div>
+
+        <div class="card lista">
+            <h3>Transações</h3>
+            <div class="filtros">
+                <input type="text" id="busca" placeholder="🔍 Buscar - Ex: Pizza">
+                <div class="linha">
+                    <select id="filtro-categoria">
+                        <option value="todas">Todas as categorias</option>
+                        <option value="Salário">Salário</option>
+                        <option value="Alimentação">Alimentação</option>
+                        <option value="Transporte">Transporte</option>
+                        <option value="Moradia">Moradia</option>
+                        <option value="Lazer">Lazer</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                    <select id="filtro-tipo">
+                        <option value="todos">Todos os tipos</option>
+                        <option value="entrada">Só Entradas</option>
+                        <option value="saida">Só Saídas</option>
+                    </select>
+                </div>
+                <p id="resultado-filtro"></p>
+            </div>
+            <p id="vazio">Nenhuma transação ainda.</p>
+            <ul id="lista-transacoes"></ul>
+            <div class="botoes-rodape">
+                <button id="btn-exportar">📄 Exportar CSV</button>
+                <button id="btn-limpar">Limpar Tudo</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
