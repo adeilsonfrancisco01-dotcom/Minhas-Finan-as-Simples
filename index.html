@@ -7,107 +7,257 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="header-topo">
-            <div>
-                <h1>Minhas Finanças Simples</h1>
-                <p>Fase 3 - Diversão com Som e Ranking</p>
+    <main id="tela-login" class="login-screen" hidden>
+        <form id="form-login" class="card login-card">
+            <h1>Minhas Finanças</h1>
+            <p>Seu dinheiro sob controle</p>
+            <label for="nome-usuario">Qual seu nome?</label>
+            <input id="nome-usuario" name="nome" type="text" placeholder="Qual seu nome?" autocomplete="given-name" maxlength="80" required>
+            <button type="submit" id="btn-entrar">Entrar</button>
+        </form>
+    </main>
+
+    <div id="app-container" hidden>
+        <header>
+            <div class="header-topo">
+                <div>
+                    <h1>Minhas Finanças</h1>
+                    <p>Seu dinheiro sob controle</p>
+                </div>
+                <div class="header-acoes">
+                    <button id="btn-sair" type="button">Sair</button>
+                    <button id="btn-tema" type="button" aria-label="Ativar tema escuro">🌙</button>
+                </div>
             </div>
-            <button id="btn-tema">🌙</button>
-        </div>
-    </header>
+            <p id="mensagem-boas-vindas" class="mensagem-boas-vindas" role="status"></p>
+        </header>
 
-    <main>
-        <div class="card saldo">
-            <h2>Saldo Atual</h2>
-            <span id="saldo">R$ 0,00</span>
-            <p id="streak">🔥 Sequência: 0 dias guardando</p>
-        </div>
+      <main>
+        <nav class="abas" role="tablist" aria-label="Seções financeiras">
+            <button class="aba-botao ativa" id="btn-aba-visao" type="button" role="tab" aria-selected="true" aria-controls="aba-visao" data-aba="aba-visao">Visão Geral</button>
+            <button class="aba-botao" id="btn-aba-lancamentos" type="button" role="tab" aria-selected="false" aria-controls="aba-lancamentos" data-aba="aba-lancamentos">Lançamentos</button>
+            <button class="aba-botao" id="btn-aba-fixos" type="button" role="tab" aria-selected="false" aria-controls="aba-fixos" data-aba="aba-fixos">Fixos</button>
+            <button class="aba-botao" id="btn-aba-metas" type="button" role="tab" aria-selected="false" aria-controls="aba-metas" data-aba="aba-metas">Metas e Investimentos</button>
+            <button class="aba-botao" id="btn-aba-feedback" type="button" role="tab" aria-selected="false" aria-controls="aba-feedback" data-aba="aba-feedback">Feedback</button>
+        </nav>
 
-        <div class="resumo">
-            <div class="card mini"><h3>Entradas</h3><span id="total-entradas">R$ 0,00</span></div>
-            <div class="card mini"><h3>Saídas</h3><span id="total-saidas">R$ 0,00</span></div>
-        </div>
-
-        <div class="card cofrinho">
-            <h3>🐷 Meu Cofrinho</h3>
-            <p id="meta-nome">Nenhuma meta ainda. Crie uma!</p>
-            <div class="barra-fundo"><div id="barra-meta" class="barra-preenchimento"></div></div>
-            <p id="meta-texto">R$ 0 de R$ 0</p>
-            <div class="linha">
-                <input type="text" id="nome-meta" placeholder="Meta - Ex: Viagem">
-                <input type="number" id="valor-meta" placeholder="Quanto? Ex: 2000">
+        <section class="conteudo-aba ativa" id="aba-visao" role="tabpanel" aria-labelledby="btn-aba-visao">
+            <div class="card saldo">
+                <h2>Saldo Atual</h2>
+                <span id="saldo">R$ 0,00</span>
+                <p id="streak">🔥 Sequência: 0 dias guardando</p>
             </div>
-            <div class="linha">
-                <button id="btn-criar-meta">Criar Meta</button>
-                <button id="btn-guardar">💰 Guardar R$ 50</button>
+
+            <div class="card previsao-mes">
+                <p id="previsao-mes">Nesse ritmo, você vai terminar o mês gastando R$ 0,00</p>
             </div>
-            <button id="btn-som">🔊 Som: Ligado</button>
-        </div>
 
-        <div class="card">
-            <h3>🏆 Ranking - Meus Maiores Gastos</h3>
-            <p id="sem-ranking">Sem gastos ainda. Adicione uma saída.</p>
-            <ol id="ranking"></ol>
-        </div>
-
-        <div class="card">
-            <h3>Onde estou gastando?</h3>
-            <p id="sem-grafico">Adicione uma saída para ver o gráfico.</p>
-            <div id="grafico"></div>
-        </div>
-
-        <div class="card">
-            <input type="text" id="descricao" placeholder="Descrição - Ex: Salário, Pizza">
-            <input type="number" id="valor" placeholder="Valor - Ex: 100">
-            <div class="linha">
-                <input type="date" id="data">
-                <select id="categoria">
-                    <option value="Salário">Salário</option>
-                    <option value="Alimentação">Alimentação</option>
-                    <option value="Transporte">Transporte</option>
-                    <option value="Moradia">Moradia</option>
-                    <option value="Lazer">Lazer</option>
-                    <option value="Outros">Outros</option>
-                </select>
+            <div class="card">
+                <h3>Gastos por categoria este mês</h3>
+                <p id="sem-grafico-mes">Nenhuma saída neste mês.</p>
+                <div id="grafico-conteudo">
+                    <canvas id="grafico-pizza" role="img" aria-label="Gráfico de pizza dos gastos por categoria neste mês"></canvas>
+                    <ul id="legenda-grafico-mes"></ul>
+                </div>
             </div>
-        </div>
 
-        <div class="botoes">
-            <button id="btn-entrada">+ Entrada</button>
-            <button id="btn-saida">- Saída</button>
-        </div>
+            <div class="resumo">
+                <div class="card mini"><h3>Entradas</h3><span id="total-entradas">R$ 0,00</span></div>
+                <div class="card mini"><h3>Saídas</h3><span id="total-saidas">R$ 0,00</span></div>
+            </div>
 
-        <div class="card lista">
-            <h3>Transações</h3>
-            <div class="filtros">
-                <input type="text" id="busca" placeholder="🔍 Buscar - Ex: Pizza">
+            <div class="card">
+                <h3>Onde estou gastando?</h3>
+                <p id="sem-grafico">Adicione uma saída para ver o gráfico.</p>
+                <div id="grafico"></div>
+            </div>
+
+        </section>
+
+        <section class="conteudo-aba" id="aba-lancamentos" role="tabpanel" aria-labelledby="btn-aba-lancamentos" hidden>
+            <div class="card">
+                <h3>🏆 Ranking - Meus Maiores Gastos</h3>
+                <p id="sem-ranking">Sem gastos ainda. Adicione uma saída.</p>
+                <ol id="ranking"></ol>
+            </div>
+
+            <div class="card">
+                <input type="text" id="descricao" placeholder="Descrição - Ex: Salário, Pizza">
+                <input type="number" id="valor" placeholder="Valor - Ex: 100">
                 <div class="linha">
-                    <select id="filtro-categoria">
-                        <option value="todas">Todas as categorias</option>
+                    <input type="date" id="data">
+                    <select id="categoria">
                         <option value="Salário">Salário</option>
                         <option value="Alimentação">Alimentação</option>
-                        <option value="Transporte">Transporte</option>
                         <option value="Moradia">Moradia</option>
+                        <option value="Transporte">Transporte</option>
                         <option value="Lazer">Lazer</option>
+                        <option value="Saúde">Saúde</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Pets">Pets</option>
+                        <option value="Beleza">Beleza</option>
                         <option value="Outros">Outros</option>
-                    </select>
-                    <select id="filtro-tipo">
-                        <option value="todos">Todos os tipos</option>
-                        <option value="entrada">Só Entradas</option>
-                        <option value="saida">Só Saídas</option>
+                        <option value="Aluguel de ponto">Aluguel de ponto</option>
+                        <option value="Internet">Internet</option>
+                        <option value="Cartão">Cartão</option>
+                        <option value="Luz">Luz</option>
+                        <option value="Água">Água</option>
+                        <option value="Aluguel">Aluguel</option>
+                        <option value="Fatura">Fatura</option>
+                        <option value="Boletos">Boletos</option>
+                        <option value="Emergência">Emergência</option>
+                        <option value="Investimento">Investimento</option>
                     </select>
                 </div>
-                <p id="resultado-filtro"></p>
             </div>
-            <p id="vazio">Nenhuma transação ainda.</p>
-            <ul id="lista-transacoes"></ul>
-            <div class="botoes-rodape">
-                <button id="btn-exportar">📄 Exportar CSV</button>
-                <button id="btn-limpar">Limpar Tudo</button>
+
+            <div class="botoes">
+                <button id="btn-entrada">+ Entrada</button>
+                <button id="btn-saida">- Saída</button>
             </div>
-        </div>
-    </main>
+
+            <div class="card lista">
+                <h3>Transações</h3>
+                <div class="filtros">
+                    <input type="text" id="busca" placeholder="🔍 Buscar - Ex: Pizza">
+                    <div class="linha">
+                        <select id="filtro-categoria">
+                            <option value="todas">Todas as categorias</option>
+                            <option value="Salário">Salário</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Moradia">Moradia</option>
+                            <option value="Lazer">Lazer</option>
+                            <option value="Outros">Outros</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Educação">Educação</option>
+                            <option value="Pets">Pets</option>
+                            <option value="Beleza">Beleza</option>
+                            <option value="Aluguel de ponto">Aluguel de ponto</option>
+                            <option value="Internet">Internet</option>
+                            <option value="Cartão">Cartão</option>
+                            <option value="Luz">Luz</option>
+                            <option value="Água">Água</option>
+                            <option value="Aluguel">Aluguel</option>
+                            <option value="Fatura">Fatura</option>
+                            <option value="Boletos">Boletos</option>
+                            <option value="Emergência">Emergência</option>
+                            <option value="Investimento">Investimento</option>
+                            <option value="fatura">fatura</option>
+                            <option value="boletos">boletos</option>
+                            <option value="emergencia">emergencia</option>
+                        </select>
+                        <select id="filtro-tipo">
+                            <option value="todos">Todos os tipos</option>
+                            <option value="entrada">Só Entradas</option>
+                            <option value="saida">Só Saídas</option>
+                        </select>
+                    </div>
+                    <p id="resultado-filtro"></p>
+                </div>
+                <p id="vazio">Nenhuma transação ainda.</p>
+                <ul id="lista-transacoes"></ul>
+                <div class="botoes-rodape">
+                    <button id="btn-exportar">📄 Exportar CSV</button>
+                    <button id="btn-limpar">Limpar Tudo</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="conteudo-aba" id="aba-fixos" role="tabpanel" aria-labelledby="btn-aba-fixos" hidden>
+            <div class="card contas-fixas">
+                <h3>Contas fixas</h3>
+                <p id="sem-contas-fixas">Cadastre uma conta fixa para acompanhar os pagamentos.</p>
+                <ul id="lista-contas-fixas"></ul>
+                <div class="linha">
+                    <input type="text" id="descricao-conta-fixa" placeholder="Descrição - Ex: Aluguel">
+                    <input type="number" id="valor-conta-fixa" min="0.01" step="0.01" placeholder="Valor - Ex: 600">
+                </div>
+                <div class="linha">
+                    <input type="number" id="dia-conta-fixa" min="1" max="31" step="1" placeholder="Dia do vencimento - Ex: 10">
+                    <select id="categoria-conta-fixa">
+                        <option value="Aluguel de ponto">Aluguel de ponto</option>
+                        <option value="Internet">Internet</option>
+                        <option value="Cartão">Cartão</option>
+                        <option value="Luz">Luz</option>
+                        <option value="Água">Água</option>
+                        <option value="Aluguel">Aluguel</option>
+                        <option value="Fatura">Fatura</option>
+                        <option value="Boletos">Boletos</option>
+                        <option value="Emergência">Emergência</option>
+                    </select>
+                </div>
+                <button id="btn-adicionar-conta-fixa">Cadastrar conta fixa</button>
+            </div>
+
+            <div class="card gastos-ramo">
+                <h3>Gastos Fixos do Ramo</h3>
+                <p id="total-gastos-ramo"></p>
+                <ul id="lista-gastos-ramo"></ul>
+                <div class="linha">
+                    <input type="text" id="nome-gasto-ramo" placeholder="Aluguel de ponto, Internet, Cartão ou outro">
+                    <input type="number" id="valor-gasto-ramo" min="0.01" step="0.01" placeholder="Valor mensal">
+                </div>
+                <button id="btn-adicionar-gasto-ramo">Adicionar gasto mensal</button>
+            </div>
+        </section>
+
+        <section class="conteudo-aba" id="aba-metas" role="tabpanel" aria-labelledby="btn-aba-metas" hidden>
+            <div class="card cofrinho">
+                <h3>🐷 Meu Cofrinho</h3>
+                <p id="meta-nome">Nenhuma meta ainda. Crie uma!</p>
+                <div class="barra-fundo"><div id="barra-meta" class="barra-preenchimento"></div></div>
+                <p id="meta-texto">R$ 0 de R$ 0</p>
+                <div class="linha">
+                    <input type="text" id="nome-meta" placeholder="Meta - Ex: Viagem">
+                    <input type="number" id="valor-meta" placeholder="Quanto? Ex: 2000">
+                </div>
+                <div class="linha">
+                    <button id="btn-criar-meta">Criar Meta</button>
+                    <button id="btn-guardar">💰 Guardar R$ 50</button>
+                </div>
+                <button id="btn-som">🔊 Som: Ligado</button>
+            </div>
+
+            <div class="card investimentos">
+                <h3>Investimentos</h3>
+                <p id="resumo-investimentos"></p>
+                <ul id="lista-investimentos"></ul>
+                <div class="linha">
+                    <input type="text" id="nome-investimento" placeholder="Nome do investimento">
+                    <select id="tipo-investimento">
+                        <option value="Tesouro">Tesouro</option>
+                        <option value="Poupança">Poupança</option>
+                        <option value="CDB">CDB</option>
+                        <option value="Ações">Ações</option>
+                        <option value="Cripto">Cripto</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <div class="linha">
+                    <input type="number" id="valor-investido" min="0.01" step="0.01" placeholder="Valor investido">
+                    <input type="number" id="valor-atual-investimento" min="0" step="0.01" placeholder="Valor atual">
+                </div>
+                <button id="btn-adicionar-investimento">Adicionar investimento</button>
+            </div>
+        </section>
+
+        <section class="conteudo-aba" id="aba-feedback" role="tabpanel" aria-labelledby="btn-aba-feedback" hidden>
+            <section class="card feedback" aria-labelledby="titulo-feedback">
+                <h3 id="titulo-feedback">Deixe seu feedback (opcional, anônimo)</h3>
+                <label for="feedback-positivo">O que você achou?</label>
+                <textarea id="feedback-positivo" rows="3" placeholder="Conte o que funcionou bem"></textarea>
+                <label for="feedback-melhorar">O que melhorar?</label>
+                <textarea id="feedback-melhorar" rows="3" placeholder="Sugira uma melhoria"></textarea>
+                <div class="botoes-feedback">
+                    <button id="btn-copiar-feedback" type="button">Copiar feedback</button>
+                    <button id="btn-whatsapp-feedback" type="button">Enviar pelo WhatsApp</button>
+                </div>
+                <p id="status-feedback" role="status" aria-live="polite"></p>
+            </section>
+        </section>
+      </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
